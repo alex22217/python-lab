@@ -1,0 +1,29 @@
+name: Python CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    
+    - name: Display Python version
+      run: python --version
+    
+    - name: List files
+      run: ls -la
+    
+    - name: Run Python script
+      run: python factorial.py

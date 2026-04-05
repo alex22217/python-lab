@@ -1,15 +1,30 @@
 name: Python CI
-on: [push]
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
-  run:
+  run-python:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.9'
-      - name: List files (для отладки)
-        run: ls -la
-      - name: Run Python script
-        run: python factorial.py
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    
+    - name: List files for debugging
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Files in repository:"
+        ls -la
+    
+    - name: Run Python script
+      run: python factorial.py
